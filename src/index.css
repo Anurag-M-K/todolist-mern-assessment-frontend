@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.box{
+  box-shadow: 0 0  10px rgba(0,0,0,0.8);
+}
+.error{
+  color:red
+}
+.rotate {
+  animation: rotateAnimation 1s infinite linear;
+}
+
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
