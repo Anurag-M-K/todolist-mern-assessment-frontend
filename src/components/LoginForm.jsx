@@ -7,15 +7,18 @@ function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading ] = useState(false)
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await axios.post("http://localhost:8080/api/login", {
         email,
         password,
       });
-      console.log(response.data);
+      setLoading(false)
       // Save the token and user details in local storage or state
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -84,7 +87,7 @@ function LoginForm() {
                       className="bg-blue-500 hover:bg-blue-600 hover:scale-95 duration-500 text-white rounded-md px-2 py-1"
                       onClick={handleSubmit}
                     >
-                      Submit
+                     {loading === true ? "Login..." : "Login"}
                     </button>
                     <Link to={"/signup"}>
                       <small className="text-blue-700 hover:text-blue-400 cursor-pointer">

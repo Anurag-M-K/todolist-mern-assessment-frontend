@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik , Form }  from 'formik';
 import { TextField } from "./TextField";
 import * as Yup from 'yup';
+import toast , {Toaster} from "react-hot-toast";
 import axios from 'axios';
 
 function SignupForm() {
+  const [loading, setLoading ] = useState(false)
+  const navigate = useNavigate()
   const validate = Yup.object({
     username:Yup.string().max(15, "username must be 15 charecters of less").required("Username is required"),
     email:Yup.string().email( "Email is invalid").required("Email is required"),
@@ -15,9 +18,12 @@ function SignupForm() {
 
   const handleSubmit = async (values) => {
     try {
-      console.log("submiting")
+      setLoading(true)
       const response = await axios.post('http://localhost:8080/api/signup', values); 
-      console.log(response.data); 
+      setLoading(false)
+
+      toast.success("Registered successfully")
+      navigate("/login")
     } catch (error) {
       console.error(error);
     }
@@ -91,7 +97,7 @@ function SignupForm() {
                   </div>
                   <div className="relative flex justify-between items-center">
                     <button type="submit" className="bg-blue-500 hover:bg-blue-600 hover:scale-95 duration-500 text-white rounded-md px-2 py-1">
-                      Submit
+                      {loading===true ? "Submiting..." : "Submit"}
                     </button>
                   <Link to={'/login'}> <small className="text-blue-700 hover:text-blue-400 cursor-pointer ">Already have account</small></Link> 
                   </div>
@@ -104,6 +110,7 @@ function SignupForm() {
           </div>
         </div>
       </div>
+      <Toaster/>
     </>
   );
 }

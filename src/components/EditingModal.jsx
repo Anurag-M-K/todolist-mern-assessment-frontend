@@ -16,7 +16,7 @@ function EditingModal({ todo ,setIsModalOpen, setTodos }) {
         try {
           const response = await axios.get('http://localhost:8080/api/todos', config);
           console.log("response ",response)
-          setTodos(response.data.todos);
+          setTodos(response.data.todos.reverse());
         } catch (error) {
           console.log(error);
         }

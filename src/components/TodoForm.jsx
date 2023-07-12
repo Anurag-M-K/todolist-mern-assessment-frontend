@@ -10,8 +10,6 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
     todo: '',
   };
 
-  console.log("edittod ",editTodo,setEditTodo)
-
   const validationSchema = Yup.object({
     todo: Yup.string().required('Todo is required'),
   });
@@ -47,7 +45,7 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
       } else {
         await axios.post('http://localhost:8080/api/todos', values, config);
         const response = await axios.get('http://localhost:8080/api/todos', config);
-        setTodos(response.data.todos);
+        setTodos(response.data.todos.reverse());
       }
 
       setIsRotating(false);

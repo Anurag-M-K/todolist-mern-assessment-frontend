@@ -4,7 +4,7 @@ import TodoList from './TodoList';
 import { formatDistanceToNow } from 'date-fns';
 
 
-function TodoItem({ todos, setTodos, handleRead, read, setEditTodo }) {
+function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen, setIsModalOpen, editingTodo }) {
   const [isRotating, setIsRotating] = useState(false);
   const [highlightedTodo, setHighlightedTodo] = useState(null);
   const [userName, setUserName] = useState('');
@@ -52,6 +52,7 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo }) {
     <div className="box p-5 md:w-[60%] w-full border-2 bg-white shadow-lg rounded-lg mb-5">
       <h3 className='text-2xl font-medium'>The Todos:</h3>
       {todos?.map((todo, i) => (
+        
         <div
           key={i}
           className={`border-2 ${highlightedTodo === todo && read ? 'border-gray-200 text-gray-300' : 'border-gray-300'} my-5 p-4 rounded-md grid grid-cols-4`}
@@ -62,6 +63,9 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo }) {
             </h3>
           </div>
           <TodoList
+          editingTodo={editingTodo}
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
             setEditTodo={setEditTodo}
             setTodos={setTodos}
             handleRead={() => handleReadClick(todo)}

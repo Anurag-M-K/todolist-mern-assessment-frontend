@@ -11,7 +11,6 @@ function TodoList({ todo, handleDelete, handleRead ,setTodos,setEditTodo}) {
 
   const editingTodo = (todo) => {
     setIsModalOpen(!isModalOpen);
-    console.log(todo);
   };
 
   const handleDeleteClick = async () => {
@@ -48,7 +47,9 @@ function TodoList({ todo, handleDelete, handleRead ,setTodos,setEditTodo}) {
   }, []);
 
   return (
-    <div className="border-2 grid md:grid-cols-3 grid-cols-1 items-center">
+    <>
+    
+    <div className="border-2  grid md:grid-cols-3 grid-cols-1 items-center">
       <span
         onClick={() => handleRead(todo)}
         className="text-gray-500 hover:text-gray-600 flex justify-center cursor-pointer m-1 md:m-0"
@@ -73,8 +74,9 @@ function TodoList({ todo, handleDelete, handleRead ,setTodos,setEditTodo}) {
         <MdDelete size={24} />
       </span>
         
-      {isModalOpen && <EditingModal className=""  setTodos={setTodos} setIsModalOpen={setIsModalOpen} todo={todo} />}
       </div>
+      {isModalOpen && <EditingModal   setTodos={setTodos} setIsModalOpen={setIsModalOpen} todo={todo} />}
+      </>
   );
 }
 
