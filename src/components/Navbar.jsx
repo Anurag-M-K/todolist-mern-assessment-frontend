@@ -17,7 +17,7 @@ function Navbar() {
   };
 
   return (
-    <div className="box flex justify-between items-center w-full p-4 m-3 bg-blue-700 bg-opacity-60 shadow-lg text-white">
+    <div className={`box flex justify-between items-center w-full p-4 m-3 bg-blue-700  ${userDetails ? "bg-opacity-60":""} shadow-lg text-white`}>
       <h1 className="lg:text-4xl font-serif font-bold text-2xl">TODO</h1>
       {userDetails.username ? (
         <h3 className="hidden sm:flex">Logged in as {userDetails?.username}</h3>

@@ -5,6 +5,7 @@ import TodoForm from '../components/TodoForm';
 import TodoItem from '../components/TodoItem';
 import { setTodoList } from '../redux/features/todoListSlice';
 import { useDispatch } from 'react-redux';
+import Footer from '../components/Footer';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -78,7 +79,6 @@ const dispatch = useDispatch()
       isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
        setEditTodo={setEditTodo} read={read} handleRead={handleRead} setTodos={setTodos} todos={todos }  />
     </div>}
-   
       </>
   );
 }
