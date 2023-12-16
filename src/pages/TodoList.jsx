@@ -3,6 +3,8 @@ import axios from 'axios';
 import Navbar from '../components/Navbar';
 import TodoForm from '../components/TodoForm';
 import TodoItem from '../components/TodoItem';
+import { setTodoList } from '../redux/features/todoListSlice';
+import { useDispatch } from 'react-redux';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -13,6 +15,8 @@ function TodoList() {
 
   const token = localStorage.getItem('token');
 const [userName ,setUsername] = useState("")
+const dispatch = useDispatch()
+
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
@@ -29,6 +33,7 @@ const [userName ,setUsername] = useState("")
   const getTodos = async () => {
     try {
       const response = await axios.get('http://localhost:8080/api/todos', config);
+      dispatch(setTodoList(response.data.todos))
       setTodos(response.data.todos.reverse());
     } catch (error) {
       console.log(error);

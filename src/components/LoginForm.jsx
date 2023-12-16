@@ -13,7 +13,6 @@ function LoginForm() {
   const dispatch = useDispatch()
 
 
-  console.log("api ",import.meta.env.VITE_APP_BACKEND_URL)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
