@@ -4,6 +4,7 @@ import TodoList from './TodoList';
 import { formatDistanceToNow } from 'date-fns';
 import {useDispatch,useSelector} from 'react-redux'
 import { setTodoList } from '../redux/features/todoListSlice';
+import { ToastContainer, toast } from 'react-toastify';
 
 function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen, setIsModalOpen, editingTodo }) {
   const [isRotating, setIsRotating] = useState(false);
@@ -28,13 +29,21 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
       setIsRotating(true);
 
       const res = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/todos/${todo._id}`, config);
+      toast('Todo Deleted successfully', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, config);
       dispatch(setTodoList(response.data.todos))
 
       setTodos(response.data.todos);
       setIsRotating(false);
 
-      // Perform any additional actions after successful deletion (e.g., update the state or display a success message)
     } catch (error) {
       console.log(error);
       // Handle error case if deletion fails (e.g., display an error message)
@@ -50,15 +59,14 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
     }
   }, []);
 
-                // const handleReadClick = (todo) => {
-                //   setHighlightedTodo(todo);
-                //   handleRead(todo); // Call the handleRead function and pass the todo item
-                // };
+  console.log("todo",todoList)
 
+  // sort todo  by time
+  const sortedTodo = [...todoList].sort((a,b)=>new Date(b.timestamp) - new Date(a.timestamp))
   return (
     <div className="box p-5 opacity-80 md:w-[60%] w-full border-2 overflow-y-scroll bg-white shadow-lg rounded-lg mb-5">
       <h3 className='text-2xl font-medium'>The Todos:</h3>
-      {todoList?.map((todo, i) => (
+      {sortedTodo?.map((todo, i) => (
         
         <div
           key={i}
@@ -79,12 +87,20 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
             todo={todo}
             handleDelete={handleDelete}
           />
-          {/* <div>
-            <p className='text-sm  text-gray-400'>Author: {userName}</p>
-            <p className='text-sm  text-gray-400'>Added: {formatDistanceToNow(new Date(todo.timestamp), { addSuffix: true })}</p>
-          </div> */}
         </div>
       ))}
+            <ToastContainer
+position="bottom-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
+
     </div>
   );
 }

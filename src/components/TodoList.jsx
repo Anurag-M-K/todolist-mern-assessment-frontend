@@ -6,6 +6,7 @@ import EditingModal from "./EditingModal";
 import axios from "axios";
 import { setTodoList } from "../redux/features/todoListSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer, toast } from 'react-toastify';
 
 function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -72,6 +73,15 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
         {},
         config
       );
+      toast('Todo completed ❤️', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
 
       // Retrieve the updated list of todos
       const response = await axios.get(
@@ -99,7 +109,7 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
               <HiPencil size={24} />
             </span>
             <span
-              className={`text-red-00 flex justify-center cursor-pointer border-t-2 hover:text-red-700 md:border-t-0 m-1 md:m-0 ${isDeleting ? "rotate  " : ""}`}
+              className={`text-red-00 flex justify-center cursor-pointer  hover:text-red-700 md:border-t-0 m-1 md:m-0 ${isDeleting ? "rotate  " : ""}`}
               onClick={handleDeleteClick}
             >
               <MdDelete size={24} />
@@ -133,6 +143,17 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
           todo={todo}
         />
       )}
+                <ToastContainer
+position="bottom-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
     </>
   );
 }

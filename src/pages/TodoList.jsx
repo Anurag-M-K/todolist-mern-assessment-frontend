@@ -34,7 +34,7 @@ const dispatch = useDispatch()
     try {
       const response = await axios.get('http://localhost:8080/api/todos', config);
       dispatch(setTodoList(response.data.todos))
-      setTodos(response.data.todos.reverse());
+      // setTodos(response.data.todos.reverse());
     } catch (error) {
       console.log(error);
     }

@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { setTodoList } from '../redux/features/todoListSlice';
 import { useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
 
 function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
 
@@ -33,6 +34,15 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
         setLoading(true)
     const res = await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/edit-todo/${todo._id}`, values,config);
     getTodos(); 
+    toast('Todo updated successfully', {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
     setIsModalOpen(false)
     setLoading(false)
     } catch (error) {
@@ -115,6 +125,17 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
             </div>
           </div>
         </div>
+        <ToastContainer
+position="bottom-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
       </div>
     </>
   );
