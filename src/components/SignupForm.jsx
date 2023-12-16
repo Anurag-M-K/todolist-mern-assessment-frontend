@@ -27,7 +27,7 @@ function SignupForm() {
     } catch (error) {
       console.error(error);
     } 
-  };
+  }; 
   return (
     <>
     <div className="md:px-44 px-5 flex flex-col justify-center gap-y-4 items-center">
