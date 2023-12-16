@@ -62,7 +62,7 @@ function LoginForm() {
                 <h1 className="text-3xl uppercase text-center font-medium ">Login</h1>
               </div>
               <div className="divide-y divide-gray-200">
-                <div className="py-8 text-base  leading-6 space-y-8 text-gray-700 sm:text-lg sm:leading-7">
+                <div className="py-8 text-base  leading-6  sm:space-y-4  space-y-8 text-gray-700 sm:text-lg sm:leading-7">
                   <div className="relative">
                     <input
                       autoComplete="off"
@@ -123,9 +123,9 @@ function LoginForm() {
         </div>
 
       </div>
-      {/* <div className="md:px-44   flex flex-col justify-center gap-y-4 items-center">
+      <div className="md:px-44   flex flex-col justify-center gap-y-4 items-center">
         <Footer />
-      </div>    */}
+      </div>   
       <ToastContainer
 position="bottom-center"
 autoClose={3000}
