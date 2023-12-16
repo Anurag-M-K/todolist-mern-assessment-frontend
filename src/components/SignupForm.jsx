@@ -26,7 +26,7 @@ function SignupForm() {
       navigate("/login")
     } catch (error) {
       console.error(error);
-    }
+    } 
   };
   return (
     <>
