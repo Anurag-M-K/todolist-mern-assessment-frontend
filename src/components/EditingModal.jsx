@@ -26,7 +26,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
           console.log(error);
         }
       };
-    
+     
 
 
   const onSubmit = async(values) => {
