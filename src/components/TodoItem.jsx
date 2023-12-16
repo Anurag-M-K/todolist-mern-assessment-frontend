@@ -64,8 +64,8 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
   // sort todo  by time
   const sortedTodo = [...todoList].sort((a,b)=>new Date(b.timestamp) - new Date(a.timestamp))
   return (
-    <div className="box p-5 opacity-80 md:w-[60%] w-full border-2 overflow-y-scroll bg-white shadow-lg rounded-lg mb-5">
-      <h3 className='text-2xl font-medium'>The Todos:</h3>
+<div className={`box ${sortedTodo.length !== 0 ? "p-5 border-2" : "p-0 border-none"} opacity-80 md:w-[60%] w-full overflow-y-scroll bg-white shadow-lg rounded-lg mb-5`}>
+      {/* <h3 className='text-2xl font-medium'>The Todos:</h3> */}
       {sortedTodo?.map((todo, i) => (
         
         <div

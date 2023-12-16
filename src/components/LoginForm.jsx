@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setToken, setUserDetails } from "../redux/features/userSlice";
+import { ToastContainer, toast } from 'react-toastify';
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -21,6 +22,16 @@ function LoginForm() {
         email,
         password,
       });
+      console.log("rsponse ",response )
+      toast(response.data.message, {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
       dispatch(setUserDetails(response?.data?.user))
       dispatch(setToken(response?.data?.token))
 
@@ -107,6 +118,17 @@ function LoginForm() {
           </div>
         </div>
       </div>
+      <ToastContainer
+position="bottom-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
     </>
   );
 }
