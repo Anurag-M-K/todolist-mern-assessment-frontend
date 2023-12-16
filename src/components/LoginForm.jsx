@@ -13,11 +13,12 @@ function LoginForm() {
   const dispatch = useDispatch()
 
 
+  console.log("api ",import.meta.env.VITE_APP_BACKEND_URL)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true)
-      const response = await axios.post("http://localhost:8080/api/login", {
+      const response = await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/login`, {
         email,
         password,
       });

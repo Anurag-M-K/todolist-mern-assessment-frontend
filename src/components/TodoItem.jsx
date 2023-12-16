@@ -27,8 +27,8 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
       // Send a DELETE request to the server
       setIsRotating(true);
 
-      const res = await axios.delete(`http://localhost:8080/api/todos/${todo._id}`, config);
-      const response = await axios.get('http://localhost:8080/api/todos', config);
+      const res = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/todos/${todo._id}`, config);
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, config);
       dispatch(setTodoList(response.data.todos))
 
       setTodos(response.data.todos);
@@ -58,11 +58,7 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
   return (
     <div className="box p-5 opacity-80 md:w-[60%] w-full border-2 overflow-y-scroll bg-white shadow-lg rounded-lg mb-5">
       <h3 className='text-2xl font-medium'>The Todos:</h3>
-<<<<<<< HEAD
       {todoList?.map((todo, i) => (
-=======
-      {todos?.map((todo, i) => (
->>>>>>> b2154311b919d32c2df2d6cb581a97170d035fcf
         
         <div
           key={i}

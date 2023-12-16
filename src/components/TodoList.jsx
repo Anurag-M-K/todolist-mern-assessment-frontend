@@ -13,7 +13,6 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const { todoList } = useSelector((state) => state?.todoList);
-  console.log("todolist from redux ", todoList);
 
   const editingTodo = (todo) => {
     setIsModalOpen(!isModalOpen);
@@ -25,7 +24,7 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
       await handleDelete(todo); // Call the handleDelete function and pass the todo item
        // Retrieve the updated list of todos
        const response = await axios.get(
-        "http://localhost:8080/api/todos",
+        `${import.meta.env.VITE_APP_BACKEND_URL}/todos`,
         config
       );
       dispatch(setTodoList(response.data.todos));
@@ -69,14 +68,14 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
     try {
       // Update the specific todo
       await axios.patch(
-        `http://localhost:8080/api/todo/${todo._id}`,
+        `${import.meta.env.VITE_APP_BACKEND_URL}/todo/${todo._id}`,
         {},
         config
       );
 
       // Retrieve the updated list of todos
       const response = await axios.get(
-        "http://localhost:8080/api/todos",
+        `${import.meta.env.VITE_APP_BACKEND_URL}/todos`,
         config
       );
       dispatch(setTodoList(response.data.todos));

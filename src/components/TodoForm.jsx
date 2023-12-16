@@ -36,7 +36,7 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
       setIsRotating(true);
 
       if (editTodo) {
-        await axios.put(`http://localhost:8080/api/todos/${editTodo._id}`, values, config);
+        await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/todos/${editTodo._id}`, values, config);
         setTodos((prevTodos) =>
           prevTodos.map((todo) => {
             if (todo._id === editTodo._id) {
@@ -47,8 +47,8 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
         );
         setEditTodo(null);
       } else {
-        await axios.post('http://localhost:8080/api/todos', values, config);
-        const response = await axios.get('http://localhost:8080/api/todos', config);
+        await axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, values, config);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, config);
         dispatch(setTodoList(response.data.todos))
 
         // setTodos(response.data.todos.reverse());

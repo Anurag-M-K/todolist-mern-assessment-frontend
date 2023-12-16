@@ -18,7 +18,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
 
     const getTodos = async () => {
         try {
-          const response = await axios.get('http://localhost:8080/api/todos', config);
+          const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, config);
           dispatch(setTodoList(response.data.todos))
           setTodos(response.data.todos.reverse());
         } catch (error) {
@@ -31,7 +31,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
   const onSubmit = async(values) => {
       try {
         setLoading(true)
-    const res = await axios.put(`http://localhost:8080/api/edit-todo/${todo._id}`, values,config);
+    const res = await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/edit-todo/${todo._id}`, values,config);
     getTodos(); 
     setIsModalOpen(false)
     setLoading(false)
