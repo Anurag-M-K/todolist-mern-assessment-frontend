@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setUserLogout, setUserDetails } from '../redux/features/userSlice';
 
 function Navbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [userName, setUserName] = useState('');
-  console.log(userName)
-
-  useEffect(() => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      const { username } = JSON.parse(user);
-      setUserName(username);
-    }
-  }, []);
+  const dispatch = useDispatch();
+  const { userDetails } = useSelector((state) => state.user);
 
   const handleSignOut = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    dispatch(setUserLogout());
+    dispatch(setUserDetails(''));
+    dispatch(setUserDetails(""))
     navigate('/login');
   };
 
   return (
-    <div className="box flex justify-between items-center w-full p-4 m-3 bg-blue-700 shadow-lg text-white">
-      <h1 className="lg:text-4xl text-2xl">toDoApp;</h1>
-     {
-      userName ?  <h3 className="hidden sm:flex">Logged in as {userName}</h3> : ""
-     }
-     {
-      userName ?  <button onClick={handleSignOut} className="mx-5 hover:text-gray-300" >
-      SIGNOUT
-    </button> :  <button onClick={()=>navigate("/login  ")} className="mx-5 hover:text-gray-300" >
-        LOGIN
-      </button>
-     }
+    <div className="box flex justify-between items-center w-full p-4 m-3 bg-blue-700 bg-opacity-60 shadow-lg text-white">
+      <h1 className="lg:text-4xl font-serif font-bold text-2xl">TODO</h1>
+      {userDetails.username ? (
+        <h3 className="hidden sm:flex">Logged in as {userDetails?.username}</h3>
+      ) : (
+        ''
+      )}
+      {userDetails ? (
+        <button onClick={handleSignOut} className="mx-5 hover:text-gray-300">
+          SIGNOUT
+        </button>
+      ) : (
+        <button onClick={() => navigate('/login')} className="mx-5 hover:text-gray-300">
+          LOGIN
+        </button>
+      )}
     </div>
   );
 }
 
 export default Navbar;
+  

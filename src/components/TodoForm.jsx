@@ -3,14 +3,16 @@ import { IoMdSend } from 'react-icons/io';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { setTodoList } from '../redux/features/todoListSlice';
+import { useDispatch } from 'react-redux';
 
 function TodoForm({ setTodos, editTodo, setEditTodo }) {
   const [isRotating, setIsRotating] = useState(false);
+  const dispatch = useDispatch()
+
   const initialValues = {
     todo: '',
   };
-
-  console.log("edittod ",editTodo,setEditTodo)
 
   const validationSchema = Yup.object({
     todo: Yup.string().required('Todo is required'),
@@ -27,7 +29,7 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
       const token = localStorage.getItem('token');
       const config = {
         headers: {
-          Authorization: token,
+          Authorization: `Bearer ${token}`, // Add the token to the Authorization header
         },
       };
 
@@ -47,7 +49,9 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
       } else {
         await axios.post('http://localhost:8080/api/todos', values, config);
         const response = await axios.get('http://localhost:8080/api/todos', config);
-        setTodos(response.data.todos);
+        dispatch(setTodoList(response.data.todos))
+
+        // setTodos(response.data.todos.reverse());
       }
 
       setIsRotating(false);
@@ -58,7 +62,7 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
   };
 
   return (
-    <div className="box py-7 px-4 md:w-[60%] w-full border bg-white shadow-lg shadow-left shadow-right shadow-top shadow-bottom rounded-lg">
+    <div className="box py-7 px-4 md:w-[60%] opacity-60 w-full border bg-white  shadow-lg shadow-left shadow-right shadow-top shadow-bottom rounded-lg">
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         <Form>
           <div className="flex w-full">

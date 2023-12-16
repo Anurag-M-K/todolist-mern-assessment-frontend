@@ -2,20 +2,29 @@ import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setToken, setUserDetails } from "../redux/features/userSlice";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading ] = useState(false)
+  const dispatch = useDispatch()
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true)
       const response = await axios.post("http://localhost:8080/api/login", {
         email,
         password,
       });
-      console.log(response.data);
+      dispatch(setUserDetails(response?.data?.user))
+      dispatch(setToken(response?.data?.token))
+
+      setLoading(false)
       // Save the token and user details in local storage or state
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -29,10 +38,10 @@ function LoginForm() {
 
   return (
     <>
-      <div className="md:px-44 px-5 flex flex-col justify-center gap-y-4 items-center">
+      <div className="md:px-44  px-5 flex flex-col justify-center gap-y-4 items-center">
         <Navbar />
       </div>
-      <div className="py-6 flex flex-col justify-center sm:py-12">
+      <div  className=" flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="absolute inset-0 bg-gradient-to-r hidden sm:flex from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl m-5 sm:m-0 sm:p-20">
@@ -84,7 +93,7 @@ function LoginForm() {
                       className="bg-blue-500 hover:bg-blue-600 hover:scale-95 duration-500 text-white rounded-md px-2 py-1"
                       onClick={handleSubmit}
                     >
-                      Submit
+                     {loading === true ? "Login..." : "Login"}
                     </button>
                     <Link to={"/signup"}>
                       <small className="text-blue-700 hover:text-blue-400 cursor-pointer">

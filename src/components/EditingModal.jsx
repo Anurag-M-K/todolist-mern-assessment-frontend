@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import axios from 'axios';
+import { setTodoList } from '../redux/features/todoListSlice';
+import { useDispatch } from 'react-redux';
 
-function EditingModal({ todo ,setIsModalOpen, setTodos }) {
+function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
 
     const [loading, setLoading] = useState(false)
     const token = localStorage.getItem('token');
+    const dispatch = useDispatch()
+
     const config = {
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`, // Add the token to the Authorization header
       },
     };
 
     const getTodos = async () => {
         try {
           const response = await axios.get('http://localhost:8080/api/todos', config);
-          console.log("response ",response)
-          setTodos(response.data.todos);
+          dispatch(setTodoList(response.data.todos))
+          setTodos(response.data.todos.reverse());
         } catch (error) {
           console.log(error);
         }
@@ -28,7 +32,7 @@ function EditingModal({ todo ,setIsModalOpen, setTodos }) {
       try {
         setLoading(true)
     const res = await axios.put(`http://localhost:8080/api/edit-todo/${todo._id}`, values,config);
-    getTodos();
+    getTodos(); 
     setIsModalOpen(false)
     setLoading(false)
     } catch (error) {
