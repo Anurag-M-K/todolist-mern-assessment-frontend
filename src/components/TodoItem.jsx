@@ -59,7 +59,6 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
     }
   }, []);
 
-  console.log("todo",todoList)
 
   // sort todo  by time
   const sortedTodo = [...todoList].sort((a,b)=>new Date(b.timestamp) - new Date(a.timestamp))
@@ -70,7 +69,7 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
         
         <div
           key={i}
-          className={`border-2 flex items-center ${todo.read === true ? 'border-gray-200 text-gray-300' : 'border-gray-300'} my-5 p-4 rounded-md grid grid-cols-4`}
+          className={`border-2 shadow-lg  flex items-center ${todo.read === true ? 'border-gray-200 text-gray-300' : 'border-gray-300'} my-5 p-4 rounded-md grid grid-cols-4`}
         >
           <div className="col-span-3">
             <h3 className={`font-medium text-[20px] flex items-center ${todo.read === true  ? 'line-through text-gray-400' : ''}`}>

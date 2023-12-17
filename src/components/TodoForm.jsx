@@ -4,11 +4,13 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { setTodoList } from '../redux/features/todoListSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function TodoForm({ setTodos, editTodo, setEditTodo }) {
   const [isRotating, setIsRotating] = useState(false);
   const dispatch = useDispatch()
+  const { userDetails } = useSelector ((state) => state.user);
+
 
   const initialValues = {
     todo: '',
@@ -62,7 +64,7 @@ function TodoForm({ setTodos, editTodo, setEditTodo }) {
   };
 
   return (
-    <div className="box py-7 px-4 md:w-[60%] opacity-60 w-full border bg-white  shadow-lg shadow-left shadow-right shadow-top shadow-bottom rounded-lg">
+    <div className={`box py-7 px-4 md:w-[60%] ${userDetails.username==import.meta.env.VITE_APP_NAME ? "opacity-60" : "" } w-full border bg-white  shadow-lg shadow-left shadow-right shadow-top shadow-bottom rounded-lg`}>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         <Form>
           <div className="flex w-full">
