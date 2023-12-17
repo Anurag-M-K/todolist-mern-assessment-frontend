@@ -49,8 +49,8 @@ function LoginForm() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-between">
-      <div className="md:px-44  px-5 flex flex-col  justify-center gap-y-4 items-center">
+    <div className="h-screen grid grid-rows-3">
+      <div className="md:px-44   px-5 flex flex-col  justify-start gap-y-4 items-center">
         <Navbar />
       </div>
       <div  className=" flex flex-col justify-center sm:py-12">
@@ -123,7 +123,7 @@ function LoginForm() {
         </div>
 
       </div>
-      <div className="md:px-44   flex flex-col justify-center gap-y-4 items-center">
+      <div className="md:px-44   flex flex-col justify-end gap-y-4 items-center">
         <Footer />
       </div>   
       <ToastContainer

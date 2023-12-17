@@ -4,6 +4,7 @@ import axios from 'axios';
 import { setTodoList } from '../redux/features/todoListSlice';
 import { useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { setModelState } from '../redux/features/modalSlice';
 
 function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
 
@@ -44,6 +45,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
       theme: "dark",
       });
     setIsModalOpen(false)
+    dispatch(setModelState(false))
     setLoading(false)
     } catch (error) {
       console.log(error);
@@ -67,7 +69,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
         id="authentication-modal"
         tabIndex="-1"
         aria-hidden="true"
-        className="fixed  flex justify-center items-center  z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+        className="fixed  blur-none  flex justify-center items-center  z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
         onClick={handleModalClick} // Handle click event to prevent closing
       >
         <div className="relative w-full max-w-md max-h-full">

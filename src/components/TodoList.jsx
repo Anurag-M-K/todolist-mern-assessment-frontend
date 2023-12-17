@@ -7,6 +7,7 @@ import axios from "axios";
 import { setTodoList } from "../redux/features/todoListSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
+import { setModelState } from "../redux/features/modalSlice";
 
 function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -17,6 +18,7 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
 
   const editingTodo = (todo) => {
     setIsModalOpen(!isModalOpen);
+    dispatch(setModelState(true))
   };
 
   const handleDeleteClick = async () => {
@@ -68,14 +70,14 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
 
     try {
       // Update the specific todo
-      await axios.patch(
+     const res = await axios.patch(
         `${import.meta.env.VITE_APP_BACKEND_URL}/todo/${todo._id}`,
         {},
         config
       );
-      toast('Todo completed ❤️', {
+      toast(res.data.message, {
         position: "bottom-center",
-        autoClose: 3000,
+        autoClose: 2000,
         hideProgressBar: false,
         pauseOnHover: true,
         draggable: true,
@@ -104,7 +106,7 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
             <BsFillCheckCircleFill size={20} />
           </span><span
             onClick={() => editingTodo(todo)}
-            className={`text-blue-00 flex justify-center cursor-pointer hover:text-blue-800 border-t-2 md:border-t-0 md:border-l-2 border-l-0  md:border-r-2 border-r-0 m-1 md:m-0 ${isEditing ? "line-through" : ""}`}
+            className={`text-blue-00 flex justify-center cursor-pointer hover:text-blue-800  md:border-t-0 md:border-l-2 border-l-0  md:border-r-2 border-r-0 m-1 md:m-0 ${isEditing ? "line-through" : ""}`}
           >
               <HiPencil size={24} />
             </span>
@@ -145,7 +147,7 @@ function TodoList({ todo, handleDelete, setTodos, setEditTodo }) {
       )}
                 <ToastContainer
 position="bottom-center"
-autoClose={3000}
+autoClose={2000}
 hideProgressBar={false}
 newestOnTop={false}
 rtl={false}

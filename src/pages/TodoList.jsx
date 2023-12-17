@@ -4,8 +4,9 @@ import Navbar from '../components/Navbar';
 import TodoForm from '../components/TodoForm';
 import TodoItem from '../components/TodoItem';
 import { setTodoList } from '../redux/features/todoListSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
+import EditingModal from '../components/EditingModal';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -17,7 +18,9 @@ function TodoList() {
   const token = localStorage.getItem('token');
 const [userName ,setUsername] = useState("")
 const dispatch = useDispatch()
+const { modalState } = useSelector(state=>state.modal)
 
+console.log("modelstaet ",modalState)
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
@@ -60,9 +63,10 @@ const dispatch = useDispatch()
   }
   return (
     <>
+    <div className={`${modalState ? "":""}`}>
     {userName==import.meta.env.VITE_APP_NAME ?
      <div style={{
-      backgroundImage: "url('/bgmk.jpg')",
+       backgroundImage: "url('/bgmk.jpg')",
       backgroundSize: "cover",
       backgroundRepeat: "no-repeat",
     }}  className={` ${isModalOpen === true ? "blur-sm": ""} lg:px-44   h-screen px-5 flex flex-col  gap-y-4 items-center`}>
@@ -77,8 +81,16 @@ const dispatch = useDispatch()
       <TodoForm  editingTodoValue={editingTodoValue} editTodo={editTodo} setEditTodo={setEditTodo} setTodos={setTodos} />
       <TodoItem editingTodo={editingTodo} 
       isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-       setEditTodo={setEditTodo} read={read} handleRead={handleRead} setTodos={setTodos} todos={todos }  />
+      setEditTodo={setEditTodo} read={read} handleRead={handleRead} setTodos={setTodos} todos={todos }  />
     </div>}
+      </div>
+      {/* {modalState && (
+        <EditingModal
+          setTodos={setTodos}
+          setIsModalOpen={setIsModalOpen}
+          todo={"todo"}
+        />
+      )} */}
       </>
   );
 }

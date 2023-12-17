@@ -29,7 +29,7 @@ function TodoItem({ todos, setTodos, handleRead, read, setEditTodo, isModalOpen,
       setIsRotating(true);
 
       const res = await axios.delete(`${import.meta.env.VITE_APP_BACKEND_URL}/todos/${todo._id}`, config);
-      toast('Todo Deleted successfully', {
+      toast('Todo Deleted successfully 🫢🤷‍♂️', {
         position: "bottom-center",
         autoClose: 3000,
         hideProgressBar: false,

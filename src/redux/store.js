@@ -4,6 +4,7 @@ import {persistReducer} from 'redux-persist';
 import { combineReducers } from "@reduxjs/toolkit";
 import {userSlice} from "./features/userSlice";
 import {todoListSlice} from "./features/todoListSlice";
+import  { modalSlice } from "./features/modalSlice";
 
 
 const persistConfig = {
@@ -13,7 +14,8 @@ const persistConfig = {
 };
 const reducer = combineReducers({
     user:userSlice.reducer,
-    todoList:todoListSlice.reducer
+    todoList:todoListSlice.reducer,
+    modal:modalSlice.reducer
 
 
 })
