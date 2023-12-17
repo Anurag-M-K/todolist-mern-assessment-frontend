@@ -7,6 +7,7 @@ import { setTodoList } from '../redux/features/todoListSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../components/Footer';
 import EditingModal from '../components/EditingModal';
+import { ToastContainer, toast } from 'react-toastify';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
@@ -19,8 +20,23 @@ function TodoList() {
 const [userName ,setUsername] = useState("")
 const dispatch = useDispatch()
 const { modalState } = useSelector(state=>state.modal)
+const {userDetails} = useSelector(state=>state.user)
 
-console.log("modelstaet ",modalState)
+useEffect(()=>{
+
+if(userDetails.username === import.meta.env.VITE_APP_NAME){
+  toast(import.meta.env.VITE_APP_LOGIN_MESSAGE, {
+    position: "top-center",
+    autoClose: 3000,
+    hideProgressBar: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+}
+},[])
+
   useEffect(() => {
     const user = localStorage.getItem('user');
     if (user) {
@@ -36,7 +52,7 @@ console.log("modelstaet ",modalState)
 
   const getTodos = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/todos', config);
+      const response = await axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/todos`, config);
       dispatch(setTodoList(response.data.todos))
       // setTodos(response.data.todos.reverse());
     } catch (error) {
@@ -61,6 +77,8 @@ console.log("modelstaet ",modalState)
   const editingTodo = (todo) =>{
     setEditingTodoValue(todo)
   }
+
+  
   return (
     <>
     <div className={`${modalState ? "":""}`}>
@@ -91,6 +109,17 @@ console.log("modelstaet ",modalState)
           todo={"todo"}
         />
       )} */}
+             <ToastContainer
+position="top-center"
+autoClose={3000}
+hideProgressBar={false}
+newestOnTop={false}
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
       </>
   );
 }

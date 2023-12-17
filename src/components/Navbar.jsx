@@ -22,7 +22,7 @@ function Navbar() {
       {userDetails.username ? (
         <h3 className=" sm:flex uppercase font-serif  rounded-lg "> {userDetails?.username}</h3>
       ) : (
-        ''
+      "TODO"
       )}
       {userDetails ? (
         <button onClick={handleSignOut} className="mx-5 hover:text-gray-300">

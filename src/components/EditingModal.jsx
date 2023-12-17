@@ -35,7 +35,7 @@ function  EditingModal({ todo ,setIsModalOpen, setTodos }) {
         setLoading(true)
     const res = await axios.put(`${import.meta.env.VITE_APP_BACKEND_URL}/edit-todo/${todo._id}`, values,config);
     getTodos(); 
-    toast('Todo updated successfully', {
+    toast('Todo updated successfully🤩😛😎', {
       position: "bottom-center",
       autoClose: 3000,
       hideProgressBar: false,
